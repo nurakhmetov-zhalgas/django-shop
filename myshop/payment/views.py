@@ -4,7 +4,6 @@ import stripe
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from orders.models import Order
-from requests import session
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 stripe.api_version = settings.STRIPE_API_VERSION
