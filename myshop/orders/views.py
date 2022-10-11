@@ -15,7 +15,7 @@ from .tasks import order_created
 
 @staff_member_required
 def admin_order_pdf(request, order_id):
-    order = get_object_or_404(request, pk=order_id)
+    order = get_object_or_404(Order, pk=order_id)
     html = render_to_string("orders/order/pdf.html", {"order": order})
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = f"filename=order_{order.id}.pdf"

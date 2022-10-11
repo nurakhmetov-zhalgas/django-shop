@@ -9,6 +9,14 @@ from django.utils.safestring import mark_safe
 from .models import Order, OrderItem
 
 
+def order_pdf(obj):
+    url = reverse("orders:admin_order_pdf", args=[obj.pk])
+    return mark_safe(f"<a href='{url}'>PDF</a>")
+
+
+order_pdf.short_description = "Счет-фактура"
+
+
 def order_payment(obj: Order):
     url = obj.get_stripe_url()
     if obj.stripe_id:
@@ -71,6 +79,7 @@ class OrderAdmin(admin.ModelAdmin):
         "created",
         "updated",
         order_detail,
+        order_pdf,
     ]
     list_filter = ["paid", "created", "updated"]
     inlines = [OrderItemInline]
