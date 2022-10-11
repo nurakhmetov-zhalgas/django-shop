@@ -3,9 +3,8 @@ from decimal import Decimal
 import stripe
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render, reverse
-from requests import session
-
 from orders.models import Order
+from requests import session
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 stripe.api_version = settings.STRIPE_API_VERSION
@@ -16,8 +15,10 @@ def payment_process(request):
     order = get_object_or_404(Order, id=order_id)
 
     if request.method == "POST":
-        success_url = request.build_absolute_uri(reverse("payment:completed"))
-        cancel_url = request.build_absolute_uri(reverse("payment:canceled"))
+        # success_url = request.build_absolute_uri(reverse("payment:completed"))
+        # cancel_url = request.build_absolute_uri(reverse("payment:canceled"))
+        success_url = "http://localhost/payment/completed/"
+        cancel_url = "http://localhost/payment/canceled/"
 
         session_data = {
             "mode": "payment",

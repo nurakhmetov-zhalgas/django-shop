@@ -4,7 +4,9 @@ services:
   db:
     image: postgres:13.3
     volumes:
-      - /var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
     env_file:
       - ./.env
   
@@ -34,6 +36,28 @@ services:
     depends_on:
       - web
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  celery:
+    build: .
+    restart: always
+    command: celery -A myshop worker -l info
+    depends_on:
+      - rabbitmq
+    env_file:
+      - ./.env
+
+  stripe-cli:
+    image: stripe/stripe-cli
+    command: "listen --api-key ${STRIPE_SECRET_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to web:8000/payment/webhook/"
+    env_file:
+      - ./.env
+
 volumes:
+  postgres_data:
   static_value:
   media_value:
