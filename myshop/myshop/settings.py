@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "shop.apps.ShopConfig",
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
+    "payment.apps.PaymentConfig",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 CART_SESSION_ID = "cart"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+STRIPE_PUBLISHABLE_KEY = "pk_test_51LqduFB3Bu0gnC6pmqiV4NsN2wYxCJToaGJV8VMBuO0gQmDdN26lh7vwZSxgINwBtAR34qmn7wqkQIPyU7vvZ3Uf008GiN09Yk"
+STRIPE_SECRET_KEY = "sk_test_51LqduFB3Bu0gnC6p3qwNMfGIRbe7Ow2wG0HSxwVSsvMlebQxa8jJqC2tfRViU4yNqS3LsswDcAOaDqGzEjAM0plv00OgZx8aBX"
+STRIPE_API_VERSION = "2022-08-01"
