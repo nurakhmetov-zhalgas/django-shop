@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "web"]
 CSRF_TRUSTED_ORIGINS = ["http://*localhost", "http://*.127.0.0.1"]
@@ -93,6 +93,9 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT"),
     }
 }
+# DATABASES = {
+#     "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
+# }
 
 
 # Password validation
@@ -148,3 +151,7 @@ STRIPE_API_VERSION = os.getenv("STRIPE_API_VERSION")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 
 CELERY_BROKER_URL = "amqp://guest:guest@rabbitmq:5672/"
+
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_PORT = os.getenv("REDIS_PORT")
+REDIS_DB = os.getenv("REDIS_DB")
