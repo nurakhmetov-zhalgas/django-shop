@@ -3,6 +3,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from orders.models import Order
+from shop.recommender import Recommender
 
 from .tasks import payment_completed
 
@@ -27,6 +28,9 @@ def stripe_webhook(request):
                 order = Order.objects.get(id=session.client_reference_id)
             except Order.DoesNotExist:
                 return HttpResponse(status=400)
+            products_in_order = [orderitem.product for orderitem in order.items.all()]
+            r = Recommender()
+            r.products_bought(products_in_order)
             order.paid = True
             order.stripe_id = session.payment_intent
             order.save()

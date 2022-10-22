@@ -41,6 +41,16 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+  
+  redis:
+    image: redis:6.2.6-alpine
+    restart: always
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
 
   celery:
     build: .
@@ -61,3 +71,4 @@ volumes:
   postgres_data:
   static_value:
   media_value:
+  redis_data:
